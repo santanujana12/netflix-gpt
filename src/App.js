@@ -1,9 +1,11 @@
 import './App.css';
 
+import Body from './components/Body/Body';
+
 function App() {
   return (
     <div className="App">
-      <h1 className="ext-3xl font-bold underline">Hello</h1>
+      <Body/>
     </div>
   );
 }
