@@ -1,19 +1,19 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Login from '../LoginComponent/Login';
+import LoginAndSignup from '../LoginAndSignupComponent/LoginAndSignup';
 
 // Routes for New routers
 const Routes = createBrowserRouter([
-    {
-        path:"/login",
-        element: <Login/>
-    },
-    {
-        path:"/",
-        element:<Login/>
-    }
-])
+  {
+    path: "/login",
+    element: <LoginAndSignup />,
+  },
+  {
+    path: "/",
+    element: <LoginAndSignup />,
+  },
+]);
 
 const Body = () => {
   return (

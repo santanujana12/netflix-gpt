@@ -74,6 +74,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # Netflix GPT
     - Create React App
     - Configured TailwindCSS
+    - Header
+    - Routing of App
+    - Login Form
+    - Sign up Form
+    - Form validation
+    - useRef hook
+    - Firebase setup for Authentication
 
 # Features
  - Login/Sign Up
@@ -89,3 +96,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
  - NetflixGPT
     - Search Bar
     - Movie Suggestions
+
+# Firebase Setup to deploy
+    - Firebase tools on CLI
+        - npm install -g firebase-tools -> Install Firebase tools
+        - firebase login -> Login to my firebase account
+        - firebase init -> initializes firebase
+        - firebase deploy -> Deployed new website
