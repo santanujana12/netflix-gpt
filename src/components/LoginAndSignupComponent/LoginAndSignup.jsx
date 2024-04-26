@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import { ValidateData } from "../../utils/Validators/ValidateData";
 // Firebase setup
 import { auth } from "../../utils/FireBaseConfigs /firebaseConfig";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginAndSignup = () => {
   // Toggling between sign in and sign up
@@ -25,7 +26,21 @@ const LoginAndSignup = () => {
       setErrorMessage(validateData);
     }else{
       // Do the signin/signup operation
-      
+      if(signUpPage===true){
+        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        }).catch((error)=>{
+          console.log(error.message)
+        });
+      }else{
+        signInWithEmailAndPassword(auth, email, password).then((userCredential)=>{
+          const user = userCredential.user;
+          console.log(user);
+        }).catch((error)=>{
+          console.log(error.message)
+        })
+      }
     }
   };
 
@@ -47,7 +62,7 @@ const LoginAndSignup = () => {
           <input
             type="text"
             placeholder="Full Name"
-            className="w-full p-4 my-4 bg-gray-700 bg-opacity-80"
+            className="w-full p-4 my-4 bg-gray-700 bg-opacity-80 text-white"
             required
           />
         )}
