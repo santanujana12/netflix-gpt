@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 
 import Header from "../Header/Header";
 import { ValidateData } from "../../utils/Validators/ValidateData";
+// Firebase setup
+import { auth } from "../../utils/FireBaseConfigs /firebaseConfig";
 
 const LoginAndSignup = () => {
   // Toggling between sign in and sign up
@@ -22,7 +24,8 @@ const LoginAndSignup = () => {
     if(validateData!==""){
       setErrorMessage(validateData);
     }else{
-      // Do the signin operation
+      // Do the signin/signup operation
+      
     }
   };
 
