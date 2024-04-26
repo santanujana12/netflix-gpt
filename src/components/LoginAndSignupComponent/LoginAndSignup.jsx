@@ -3,8 +3,11 @@ import React, { useState, useRef } from "react";
 import Header from "../Header/Header";
 import { ValidateData } from "../../utils/Validators/ValidateData";
 // Firebase setup
-import { auth } from "../../utils/FireBaseConfigs /firebaseConfig";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../utils/FireBaseConfigs/FireBaseConfig";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const LoginAndSignup = () => {
   // Toggling between sign in and sign up
@@ -15,35 +18,50 @@ const LoginAndSignup = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  // Handling Sign up mechanisms
+  const handleSignup = (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    const validateData = ValidateData(email, password);
+
+    if (validateData !== "") {
+      setErrorMessage(validateData);
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+      // }
+    }
+  };
+
+  // Handling Sign in mechanisms
   const handleSignIn = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    
-    const validateData = ValidateData(email,password);
 
-    if(validateData!==""){
+    const validateData = ValidateData(email, password);
+
+    if (validateData !== "") {
       setErrorMessage(validateData);
-    }else{
-      // Do the signin/signup operation
-      if(signUpPage===true){
-        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+    } else {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
           const user = userCredential.user;
           console.log(user);
-        }).catch((error)=>{
-          console.log(error.message)
-        });
-      }else{
-        signInWithEmailAndPassword(auth, email, password).then((userCredential)=>{
-          const user = userCredential.user;
-          console.log(user);
-        }).catch((error)=>{
-          console.log(error.message)
         })
-      }
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
   };
-
 
   return (
     <div>
@@ -83,10 +101,12 @@ const LoginAndSignup = () => {
 
         {errorMessage && <p className="text-red-600">{errorMessage}</p>}
 
-        <button className="w-full bg-red-600 py-4 text-white my-6" onClick={signUpPage?null:(e)=>handleSignIn(e)}>
+        <button
+          className="w-full bg-red-600 py-4 text-white my-6"
+          onClick={signUpPage ? (e)=>handleSignup(e) : (e) => handleSignIn(e)}
+        >
           {signUpPage ? "Sign Up" : "Sign In"}
         </button>
-
 
         {signUpPage ? (
           <p className="text-white" onClick={() => setSignUpPage(!signUpPage)}>
