@@ -81,6 +81,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     - Form validation
     - useRef hook
     - Firebase setup for Authentication
+    - Implement Login and sign up using Firebase authentication
+    - 
 
 # Features
  - Login/Sign Up

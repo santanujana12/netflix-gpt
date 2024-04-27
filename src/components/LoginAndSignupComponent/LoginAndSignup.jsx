@@ -1,20 +1,29 @@
 import React, { useState, useRef } from "react";
-
-import Header from "../Header/Header";
-import { ValidateData } from "../../utils/Validators/ValidateData";
 // Firebase setup
 import { auth } from "../../utils/FireBaseConfigs/FireBaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
+
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../utils/Redux/userSlice";
+
+import Header from "../Header/Header";
+import { ValidateData } from "../../utils/Validators/ValidateData";
 
 const LoginAndSignup = () => {
   // Toggling between sign in and sign up
   const [signUpPage, setSignUpPage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Using ref instead of state to prevent re-rendering
+  const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -23,6 +32,7 @@ const LoginAndSignup = () => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
+    const name = nameRef.current.value;
 
     const validateData = ValidateData(email, password);
 
@@ -32,12 +42,31 @@ const LoginAndSignup = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+
+          updateProfile(user, {
+            displayName: name,
+          })
+            .then(() => {
+              const { uid, accessToken, email, displayName } = auth.currentUser;
+              dispatch(
+                setUser({
+                  uid: uid,
+                  accessToken: accessToken,
+                  email: email,
+                  name: displayName,
+                })
+              );
+              // console.log(auth);
+              navigate("/browse");
+            })
+            .catch((error) => {
+              toast.error(error.message);
+            });
         })
         .catch((error) => {
+          toast.error(error.message);
           console.log(error.message);
         });
-      // }
     }
   };
 
@@ -55,9 +84,22 @@ const LoginAndSignup = () => {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          // // if(user)
+          // const { uid, accessToken, email, displayName } = user;
+          // dispatch(
+          //   setUser({
+          //     uid: uid,
+          //     accessToken: accessToken,
+          //     email: email,
+          //     name: displayName,
+          //   })
+          // );
+          // console.log(user);
+          toast.success("Thank you!");
+          navigate("/browse");
         })
         .catch((error) => {
+          toast.error(error.message);
           console.log(error.message);
         });
     }
@@ -79,6 +121,7 @@ const LoginAndSignup = () => {
         {signUpPage && (
           <input
             type="text"
+            ref={nameRef}
             placeholder="Full Name"
             className="w-full p-4 my-4 bg-gray-700 bg-opacity-80 text-white"
             required
@@ -103,7 +146,7 @@ const LoginAndSignup = () => {
 
         <button
           className="w-full bg-red-600 py-4 text-white my-6"
-          onClick={signUpPage ? (e)=>handleSignup(e) : (e) => handleSignIn(e)}
+          onClick={signUpPage ? (e) => handleSignup(e) : (e) => handleSignIn(e)}
         >
           {signUpPage ? "Sign Up" : "Sign In"}
         </button>
