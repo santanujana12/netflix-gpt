@@ -29,18 +29,6 @@ const Routes = createBrowserRouter([
 
 const Body = () => {
 
-  const dispatch = useDispatch();
-
-  // // Async function for getting the currently signed user and saving into state
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
-      if(user){
-        const { uid, accessToken , email, displayName} = user;
-        dispatch(setUser({uid:uid,accessToken:accessToken,email:email,name:displayName}));
-      }
-    })
-  },[])
-
   return (
     <>
       <RouterProvider router={Routes}/>

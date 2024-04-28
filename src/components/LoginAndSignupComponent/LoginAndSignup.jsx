@@ -57,9 +57,9 @@ const LoginAndSignup = () => {
                 })
               );
               // console.log(auth);
-              navigate("/browse");
             })
             .catch((error) => {
+              setErrorMessage(error.message);
               toast.error(error.message);
             });
         })
@@ -84,19 +84,7 @@ const LoginAndSignup = () => {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          // // if(user)
-          // const { uid, accessToken, email, displayName } = user;
-          // dispatch(
-          //   setUser({
-          //     uid: uid,
-          //     accessToken: accessToken,
-          //     email: email,
-          //     name: displayName,
-          //   })
-          // );
-          // console.log(user);
           toast.success("Thank you!");
-          navigate("/browse");
         })
         .catch((error) => {
           toast.error(error.message);
@@ -114,7 +102,7 @@ const LoginAndSignup = () => {
           alt="background"
         />
       </div>
-      <form className="absolute w-3/12 p-12 bg-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-opacity-75">
+      <form onSubmit={(e)=>e.preventDefault()} className="absolute w-3/12 p-12 bg-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-opacity-75">
         <h1 className="font-bold text-3xl py-4 text-white">
           {signUpPage ? "Sign Up" : "Sign In"}
         </h1>
