@@ -82,7 +82,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     - useRef hook
     - Firebase setup for Authentication
     - Implement Login and sign up using Firebase authentication
-    - 
+    - Deploying onto firebase
+    - Update Profile
+    - BugFix: Sign up user displayName
+    - BugFix: If the user is not logged in redirect to login page and vice-versa
+    - Unsubscribed to the onAuthStateChanged callback
+    
 
 # Features
  - Login/Sign Up
