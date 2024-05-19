@@ -2,6 +2,7 @@ import React,{useEffect} from 'react';
 import Header from '../Header/Header';
 
 import { useNowPlayingMovies } from '../../customHooks/useNowPlayingMovies';
+import MainContainer from './MainContainer/MainContainer';
 
 
 const Browse = () => {
@@ -13,6 +14,7 @@ const Browse = () => {
   return (
     <div>
         <Header/>
+        <MainContainer/>
     </div>
   )
 }
