@@ -3,6 +3,7 @@ import Header from '../Header/Header';
 
 import { useNowPlayingMovies } from '../../customHooks/useNowPlayingMovies';
 import MainContainer from './MainContainer/MainContainer';
+import SecondaryContainer from './SecondaryContainer/SecondaryContainer';
 
 
 const Browse = () => {
@@ -15,6 +16,7 @@ const Browse = () => {
     <div>
         <Header/>
         <MainContainer/>
+        <SecondaryContainer/>
     </div>
   )
 }
