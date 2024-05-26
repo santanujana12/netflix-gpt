@@ -5,10 +5,12 @@ import NetflixUser from "../../utils/Logos/NetflixUser.png";
 import { auth } from "../../utils/FireBaseConfigs/FireBaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
+
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 import { removeUser, setUser } from "../../utils/Redux/userSlice";
+import { toggleGptView } from "../../utils/Redux/gptSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -55,19 +57,30 @@ const Header = () => {
       });
   };
 
+  const handleToggleGpt=()=>{
+
+  }
+
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10">
       <div className="flex justify-between">
         <img className="w-52" src={NetFlixLogo} alt="LogoImage" />
         {user && (
-          <div>
-            <img className="w-16" src={NetflixUser} alt="UserLogo" />
-            <p
-              className="cursor-pointer font-bold text-white"
-              onClick={() => handleSignOut()}
-            >
-              Sign Out
-            </p>
+          <div className="flex gap-4">
+            <div>
+              <button className="bg-blue-600 text-white px-4 py-3 rounded-lg my-4" onClick={()=>dispatch(toggleGptView())}>
+                GPT Search
+              </button>
+            </div>
+            <div>
+              <img className="w-16" src={NetflixUser} alt="UserLogo" />
+              <p
+                className="cursor-pointer font-bold text-white"
+                onClick={() => handleSignOut()}
+              >
+                Sign Out
+              </p>
+            </div>
           </div>
         )}
       </div>
