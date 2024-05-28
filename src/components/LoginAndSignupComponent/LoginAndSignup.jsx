@@ -15,6 +15,9 @@ import { setUser } from "../../utils/Redux/userSlice";
 import Header from "../Header/Header";
 import { ValidateData } from "../../utils/Validators/ValidateData";
 
+// Local constant imports
+import { HOME_PICTURE_URL } from "../../utils/CONSTANTS/constants";
+
 const LoginAndSignup = () => {
   // Toggling between sign in and sign up
   const [signUpPage, setSignUpPage] = useState(false);
@@ -97,12 +100,12 @@ const LoginAndSignup = () => {
     <div>
       <Header />
       <div>
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/9f46b569-aff7-4975-9b8e-3212e4637f16/453ba2a1-6138-4e3c-9a06-b66f9a2832e4/IN-en-20240415-popsignuptwoweeks-perspective_alpha_website_large.jpg"
-          alt="background"
-        />
+        <img src={HOME_PICTURE_URL} alt="background" />
       </div>
-      <form onSubmit={(e)=>e.preventDefault()} className="absolute w-3/12 p-12 bg-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-opacity-75">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="absolute w-3/12 p-12 bg-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-opacity-75"
+      >
         <h1 className="font-bold text-3xl py-4 text-white">
           {signUpPage ? "Sign Up" : "Sign In"}
         </h1>
