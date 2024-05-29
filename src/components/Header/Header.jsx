@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import NetFlixLogo from "../../utils/Logos/Netflix_Logo_PMS.png";
 import NetflixUser from "../../utils/Logos/NetflixUser.png";
 
@@ -12,11 +12,17 @@ import { useNavigate } from "react-router-dom";
 import { removeUser, setUser } from "../../utils/Redux/userSlice";
 import { toggleGptView } from "../../utils/Redux/gptSlice";
 
+// Change language
+import { langCodes } from "../../utils/LANGUAGE_CONSTANTS/languageConstant";
+import { changeLanguage } from "../../utils/Redux/languageSlice";
+
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((store) => store.user);
+
+  const toggleGPTview = useSelector((store) => store.gptSlice.toggleGpt);
 
   // // Async function for getting the currently signed user and saving into state
   useEffect(() => {
@@ -32,14 +38,14 @@ const Header = () => {
           })
         );
         navigate("/browse");
-      }else{
+      } else {
         dispatch(removeUser());
         navigate("/");
       }
     });
 
     // unsubscribe as soon as the components unmounts
-    return ()=>unsubscribe();
+    return () => unsubscribe();
   }, []);
 
   // Handle Sign Out function
@@ -57,18 +63,32 @@ const Header = () => {
       });
   };
 
-  const handleToggleGpt=()=>{
-
-  }
-
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10">
       <div className="flex justify-between">
         <img className="w-52" src={NetFlixLogo} alt="LogoImage" />
         {user && (
           <div className="flex gap-4">
+            {/* Because of the implementation of the languahe change features only in GPT window, hence the conditional rendering */}
             <div>
-              <button className="bg-blue-600 text-white px-4 py-3 rounded-lg my-4" onClick={()=>dispatch(toggleGptView())}>
+              {toggleGPTview && (
+                <select
+                  className="p-3 m-4 rounded-lg bg-gray-500 text-white"
+                  onChange={(e) => dispatch(changeLanguage(e.target.value))}
+                >
+                  {Object.entries(langCodes).map(([key, lang]) => {
+                    return (
+                      <option key={key}>
+                        {lang}
+                      </option>
+                    );
+                  })}
+                </select>
+              )}
+              <button
+                className="bg-blue-600 text-white px-4 py-3 rounded-lg my-4"
+                onClick={() => dispatch(toggleGptView())}
+              >
                 GPT Search
               </button>
             </div>
