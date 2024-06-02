@@ -7,7 +7,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../utils/Redux/userSlice";
@@ -22,7 +21,6 @@ const LoginAndSignup = () => {
   // Toggling between sign in and sign up
   const [signUpPage, setSignUpPage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // Using ref instead of state to prevent re-rendering
@@ -91,7 +89,7 @@ const LoginAndSignup = () => {
         })
         .catch((error) => {
           toast.error(error.message);
-          console.log(error.message);
+          // console.log(error.message);
         });
     }
   };
@@ -100,11 +98,11 @@ const LoginAndSignup = () => {
     <div>
       <Header />
       <div>
-        <img src={HOME_PICTURE_URL} alt="background" />
+        <img className="h-screen object-cover md:w-full" src={HOME_PICTURE_URL} alt="background" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute w-3/12 p-12 bg-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-opacity-75"
+        className="w-full absolute md:w-3/12 p-12 bg-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-opacity-75"
       >
         <h1 className="font-bold text-3xl py-4 text-white">
           {signUpPage ? "Sign Up" : "Sign In"}

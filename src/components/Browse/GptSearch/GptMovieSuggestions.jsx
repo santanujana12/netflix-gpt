@@ -1,20 +1,27 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 
 // Local imports
-import MovieList from '../../Browse/SecondaryContainer/MovieList/MovieList';
+import MovieList from "../../Browse/SecondaryContainer/MovieList/MovieList";
 
 const GptMovieSuggestions = () => {
-
-  const {movieNames,movieResults} = useSelector((store) => store.gptSlice);
+  const { movieNames, movieResults } = useSelector((store) => store.gptSlice);
 
   return (
-    <div className='p-4 m-4 bg-black bg-opacity-40'>
-      <div>
-        {movieNames?.map((movieName, index) => <MovieList key={movieName} title={movieName} movies={movieResults[index]}/>)}
+    movieNames && (
+      <div className="p-4 m-4 bg-black bg-opacity-40">
+        <div>
+          {movieNames?.map((movieName, index) => (
+            <MovieList
+              key={movieName}
+              title={movieName}
+              movies={movieResults[index]}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    )
   );
-}
+};
 
 export default GptMovieSuggestions;
