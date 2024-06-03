@@ -87,6 +87,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     - BugFix: Sign up user displayName
     - BugFix: If the user is not logged in redirect to login page and vice-versa
     - Unsubscribed to the onAuthStateChanged callback
+    - Called TMDB API'S and displayed trailer using youtube iframe.
     
 
 # Features
